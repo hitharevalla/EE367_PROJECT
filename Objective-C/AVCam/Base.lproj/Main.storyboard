@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14750" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14710.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17014"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,13 +49,13 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label hidden="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera Unavailable" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf0-db-esM" userLabel="Camera Unavailable">
-                                <rect key="frame" x="105" y="433.5" width="204" height="29"/>
+                                <rect key="frame" x="103" y="433.5" width="208" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZr-Ip-7WL" userLabel="Resume">
-                                <rect key="frame" x="125" y="428.5" width="164" height="39"/>
+                                <rect key="frame" x="124.5" y="428.5" width="165" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                 <state key="normal" title="Tap to resume">
@@ -119,7 +117,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="wEq-95-U3e">
-                                <rect key="frame" x="101" y="124" width="212" height="26"/>
+                                <rect key="frame" x="92" y="124" width="230" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Ebh-Yj-9n1"/>
                                 </constraints>
@@ -351,6 +349,11 @@
                                 <exclude reference="oNo-3f-BoO"/>
                                 <exclude reference="0Uy-jx-Un9"/>
                                 <exclude reference="Uw4-x1-Oof"/>
+                                <exclude reference="4sd-J6-Dzm"/>
+                                <exclude reference="QJY-6U-2GD"/>
+                                <exclude reference="bpp-A5-KF9"/>
+                                <exclude reference="q78-g7-vHC"/>
+                                <exclude reference="qK7-dO-2dO"/>
                                 <exclude reference="5vQ-vu-uec"/>
                                 <exclude reference="JUe-nG-kV7"/>
                                 <exclude reference="T7K-ig-Lxt"/>
@@ -358,11 +361,6 @@
                                 <exclude reference="bce-ez-Jk3"/>
                                 <exclude reference="gDp-Ex-ZXF"/>
                                 <exclude reference="gbr-Zr-gkB"/>
-                                <exclude reference="4sd-J6-Dzm"/>
-                                <exclude reference="QJY-6U-2GD"/>
-                                <exclude reference="bpp-A5-KF9"/>
-                                <exclude reference="q78-g7-vHC"/>
-                                <exclude reference="qK7-dO-2dO"/>
                                 <exclude reference="0yT-8s-2eB"/>
                                 <exclude reference="zij-x8-X7K"/>
                                 <exclude reference="2gD-Th-1VI"/>
@@ -400,14 +398,14 @@
                                 <exclude reference="m8a-cF-Rf0"/>
                                 <exclude reference="Uw4-x1-Oof"/>
                                 <exclude reference="WNY-3Q-xv9"/>
-                                <include reference="T7K-ig-Lxt"/>
-                                <exclude reference="fLJ-A7-HBy"/>
-                                <include reference="gDp-Ex-ZXF"/>
-                                <exclude reference="jPv-AB-Awz"/>
                                 <include reference="4sd-J6-Dzm"/>
                                 <include reference="QJY-6U-2GD"/>
                                 <exclude reference="hcQ-tm-LMA"/>
                                 <exclude reference="uvp-w4-POm"/>
+                                <exclude reference="jPv-AB-Awz"/>
+                                <include reference="T7K-ig-Lxt"/>
+                                <exclude reference="fLJ-A7-HBy"/>
+                                <include reference="gDp-Ex-ZXF"/>
                                 <exclude reference="JZ1-tP-45J"/>
                                 <include reference="zij-x8-X7K"/>
                                 <include reference="r4B-Xm-WaF"/>
@@ -447,14 +445,14 @@
                                 <exclude reference="m8a-cF-Rf0"/>
                                 <exclude reference="oNo-3f-BoO"/>
                                 <exclude reference="0Uy-jx-Un9"/>
-                                <include reference="YmM-s5-grh"/>
-                                <exclude reference="bce-ez-Jk3"/>
-                                <exclude reference="fLJ-A7-HBy"/>
-                                <exclude reference="gbr-Zr-gkB"/>
                                 <include reference="bpp-A5-KF9"/>
                                 <exclude reference="hcQ-tm-LMA"/>
                                 <include reference="q78-g7-vHC"/>
                                 <exclude reference="uvp-w4-POm"/>
+                                <include reference="YmM-s5-grh"/>
+                                <exclude reference="bce-ez-Jk3"/>
+                                <exclude reference="fLJ-A7-HBy"/>
+                                <exclude reference="gbr-Zr-gkB"/>
                                 <include reference="0yT-8s-2eB"/>
                                 <exclude reference="JZ1-tP-45J"/>
                                 <include reference="LT1-EJ-X2r"/>

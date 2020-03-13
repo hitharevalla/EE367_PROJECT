@@ -312,6 +312,22 @@ typedef NS_ENUM(NSInteger, AVCamPortraitEffectsMatteDeliveryMode) {
     
     // Choose the back dual camera if available, otherwise default to a wide angle camera.
     AVCaptureDevice* videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+    NSLog(@"%s:%d debug_app videoDevice %@ videoDevice.activeFormat %@", __func__, __LINE__, videoDevice, videoDevice.activeFormat);
+    
+    AVCaptureDeviceFormat *photoFormat = nil;
+    for (AVCaptureDeviceFormat *format in videoDevice.formats) {
+        CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions( format.formatDescription );
+        NSLog(@"%s:%d debug_app dims %d %d", __func__, __LINE__, dims.width, dims.height);
+        if (dims.width == 4032 && dims.height == 3024) {
+            photoFormat = format;
+            break;
+        }
+    }
+    NSLog(@"%s:%d debug_app photo format %@", __func__, __LINE__, photoFormat);
+    [videoDevice lockForConfiguration:nil];
+    videoDevice.activeFormat = photoFormat;
+    [videoDevice unlockForConfiguration];
+    NSLog(@"%s:%d debug_app active format %@", __func__, __LINE__, videoDevice.activeFormat);
     if (!videoDevice) {
         // If a rear dual camera is not available, default to the rear wide angle camera.
         videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
@@ -378,6 +394,7 @@ typedef NS_ENUM(NSInteger, AVCamPortraitEffectsMatteDeliveryMode) {
         
         self.photoOutput.highResolutionCaptureEnabled = YES;
         self.photoOutput.livePhotoCaptureEnabled = self.photoOutput.livePhotoCaptureSupported;
+        NSLog(@"%s:%d self.photoOutput.depthDataDeliverySupported %d", __func__, __LINE__, self.photoOutput.depthDataDeliverySupported);
         self.photoOutput.depthDataDeliveryEnabled = self.photoOutput.depthDataDeliverySupported;
         self.photoOutput.portraitEffectsMatteDeliveryEnabled = self.photoOutput.portraitEffectsMatteDeliverySupported;
 		self.photoOutput.enabledSemanticSegmentationMatteTypes = self.photoOutput.availableSemanticSegmentationMatteTypes;
@@ -391,6 +408,9 @@ typedef NS_ENUM(NSInteger, AVCamPortraitEffectsMatteDeliveryMode) {
         
         self.inProgressPhotoCaptureDelegates = [NSMutableDictionary dictionary];
         self.inProgressLivePhotoCapturesCount = 0;
+        self.photoOutput.virtualDeviceConstituentPhotoDeliveryEnabled = YES;
+        NSLog(@"%s:%d debug_app virtualDeviceConstituentPhotoDeliverySupported %d", __func__, __LINE__, self.photoOutput.virtualDeviceConstituentPhotoDeliverySupported);
+        NSLog(@"%s:%d debug_app cameraCalibrationDataDeliverySupported %d", __func__, __LINE__, self.photoOutput.cameraCalibrationDataDeliverySupported);
     }
     else {
         NSLog(@"Could not add photo output to the session");
@@ -728,6 +748,14 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 		}
 		
         photoSettings.photoQualityPrioritization = self.photoQualityPrioritizationMode;
+        NSArray<AVCaptureDeviceType>* dualDeviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeBuiltInTelephotoCamera];
+        AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:dualDeviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+        photoSettings.virtualDeviceConstituentPhotoDeliveryEnabledDevices = discoverySession.devices;
+        for (AVCaptureDevice *device in discoverySession.devices) {
+            NSLog(@"debug_app device type %@", device.deviceType);
+        }
+        photoSettings.cameraCalibrationDataDeliveryEnabled = YES;
+        NSLog(@"%s:%d set cameraCalibrationDataDeliveryEnabled to YES", __func__, __LINE__);
         
         // Use a separate object for the photo capture delegate to isolate each capture life cycle.
         AVCamPhotoCaptureDelegate* photoCaptureDelegate = [[AVCamPhotoCaptureDelegate alloc] initWithRequestedPhotoSettings:photoSettings willCapturePhotoAnimation:^{

@@ -19,6 +19,7 @@ The app's photo capture delegate object.
 @property (nonatomic) void (^photoProcessingHandler)(BOOL animate);
 
 @property (nonatomic) NSData* photoData;
+@property (nonatomic) NSData* photoData1;
 @property (nonatomic) NSURL* livePhotoCompanionMovieURL;
 @property (nonatomic) NSData* portraitEffectsMatteData;
 @property (nonatomic) NSMutableArray* semanticSegmentationMatteDataArray;
@@ -116,8 +117,15 @@ The app's photo capture delegate object.
         return;
     }
     
-    self.photoData = [photo fileDataRepresentation];
-    
+    if (photo.photoCount == 1) {
+        self.photoData = [photo fileDataRepresentation];
+        NSLog(@"%s:%d first photo count %d", __func__, __LINE__, (int)photo.photoCount);
+    }
+    else {
+        self.photoData1 = [photo fileDataRepresentation];
+        NSLog(@"%s:%d second photo count %d", __func__, __LINE__, (int)photo.photoCount);
+    }
+
     // Portrait Effects Matte only gets generated if there is a face
     if ( photo.portraitEffectsMatte != nil ) {
         CGImagePropertyOrientation orientation = [[photo.metadata objectForKey:(NSString*)kCGImagePropertyOrientation] intValue];
@@ -160,7 +168,7 @@ The app's photo capture delegate object.
         return;
     }
     
-    if ( self.photoData == nil ) {
+    if ( self.photoData == nil || self.photoData1 == nil ) {
         NSLog( @"No photo data resource" );
         [self didFinish];
         return;
@@ -173,6 +181,8 @@ The app's photo capture delegate object.
                 options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType;
                 PHAssetCreationRequest* creationRequest = [PHAssetCreationRequest creationRequestForAsset];
                 [creationRequest addResourceWithType:PHAssetResourceTypePhoto data:self.photoData options:options];
+                PHAssetCreationRequest* creationRequest1 = [PHAssetCreationRequest creationRequestForAsset];
+                [creationRequest1 addResourceWithType:PHAssetResourceTypePhoto data:self.photoData1 options:options];
                 
                 if ( self.livePhotoCompanionMovieURL ) {
                     PHAssetResourceCreationOptions* livePhotoCompanionMovieResourceOptions = [[PHAssetResourceCreationOptions alloc] init];
